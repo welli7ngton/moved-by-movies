@@ -3,7 +3,7 @@
 *.pyc
 __pycache__/
 
-db_instance/
+instance/
 
 .pytest_cache/
 .coverage
