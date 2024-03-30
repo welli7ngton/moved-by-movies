@@ -4,8 +4,8 @@ DROP TABLE IF EXISTS purchase;
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  username TEXT UNIQUE NOT NULL,
-  email TEXT UNIQUE,
+  username TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
   birth DATETIME,
   password TEXT NOT NULL
 );
