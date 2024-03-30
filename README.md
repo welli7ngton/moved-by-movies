@@ -27,6 +27,9 @@ Implantação Eficiente: Preparação para implantação da API em um ambiente d
 
 # Tecnologias Utilizadas
 Linguagem: Python
+
 Framework: Flask
+
 Banco de Dados: SQLite
+
 Integração Externa: OMDb API(ainda não implementado), ViaCEP(ainda não implementado)
