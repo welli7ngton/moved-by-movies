@@ -1,5 +1,5 @@
 import string as s
-from my_exceptions import (
+from .my_exceptions import (
     HasNoPunctuation, HasNotEnoughLength, HasNoUppercase, HasNoNumbers
 )
 

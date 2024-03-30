@@ -39,15 +39,15 @@ def register():
         
         try:
             ValidatePassword(password)
-        except HasNoUppercase as e:
-            error = str(e)
         except HasNoPunctuation as e:
-            error = str(e)
-        except HasNotEnoughLength as e:
             error = str(e)
         except HasNoNumbers as e:
             error = str(e)
-        
+        except HasNotEnoughLength as e:
+            error = str(e)
+        except HasNoUppercase as e:
+            error = str(e)       
+
         if error is None:
             try:
                 db.execute(
