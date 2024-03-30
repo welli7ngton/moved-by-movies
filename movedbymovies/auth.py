@@ -11,6 +11,10 @@ from werkzeug.security import (
 )
 
 from movedbymovies.db import get_db
+from movedbymovies.util.password_validators import ValidatePassword
+from movedbymovies.util.my_exceptions import (
+    HasNoPunctuation, HasNotEnoughLength, HasNoUppercase, HasNoNumbers
+)
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -32,7 +36,18 @@ def register():
             error = 'Password is required.'
         elif not email:
             error = 'Email is required.'
-
+        
+        try:
+            ValidatePassword(password)
+        except HasNoUppercase as e:
+            error = str(e)
+        except HasNoPunctuation as e:
+            error = str(e)
+        except HasNotEnoughLength as e:
+            error = str(e)
+        except HasNoNumbers as e:
+            error = str(e)
+        
         if error is None:
             try:
                 db.execute(
