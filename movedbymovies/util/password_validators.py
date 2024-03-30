@@ -1,39 +1,37 @@
 import string as s
+
 from .my_exceptions import (
     HasNoPunctuation, HasNotEnoughLength, HasNoUppercase, HasNoNumbers
 )
 
 
-class ValidatePassword():
+class ValidatePassword:
     def __init__(self, password: str) -> None:
-        __class__.has_punctuation(password)
-        __class__.has_uppercase(password)
-        __class__.has_numbers(password)
-        __class__.has_enought_length(password)
+        self.validate(password)
 
     @classmethod
-    def has_punctuation(cls, password: str) -> bool:
-        for i in password:
-            if i in s.punctuation:
-                return True
-        raise HasNoPunctuation
+    def validate(cls, password: str) -> None:
+        cls.has_punctuation(password)
+        cls.has_uppercase(password)
+        cls.has_numbers(password)
+        cls.has_enough_length(password)
 
-    @classmethod
-    def has_uppercase(cls, password: str) -> bool:
-        for i in password:
-            if i in s.ascii_uppercase:
-                return True
-        raise HasNoUppercase
+    @staticmethod
+    def has_punctuation(password: str) -> None:
+        if not any(char in s.punctuation for char in password):
+            raise HasNoPunctuation
 
-    @classmethod
-    def has_numbers(cls, password: str) -> bool:
-        for i in password:
-            if i in s.digits:
-                return True
-        raise HasNoNumbers
+    @staticmethod
+    def has_uppercase(password: str) -> None:
+        if not any(char.isupper() for char in password):
+            raise HasNoUppercase
 
-    @classmethod
-    def has_enought_length(cls, password: str) -> bool:
-        if len(password) >= 8:
-            return True
-        raise HasNotEnoughLength
+    @staticmethod
+    def has_numbers(password: str) -> None:
+        if not any(char.isdigit() for char in password):
+            raise HasNoNumbers
+
+    @staticmethod
+    def has_enough_length(password: str) -> None:
+        if len(password) < 8:
+            raise HasNotEnoughLength
