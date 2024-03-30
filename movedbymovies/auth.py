@@ -24,6 +24,7 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        confirm_password = request.form['confirm-password']
         email = request.form['email']
         birth = request.form['birth']
 
@@ -36,6 +37,8 @@ def register():
             error = 'Password is required.'
         elif not email:
             error = 'Email is required.'
+        elif password != confirm_password:
+            error = "Password's dont match."
         
         try:
             ValidatePassword(password)
