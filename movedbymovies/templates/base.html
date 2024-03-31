@@ -1,5 +1,5 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Moved By Movies</title>
+<title>{% block title %} Home {% endblock %} - Moved By Movies</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
   <h1>Moved By Movies</h1>
@@ -7,6 +7,9 @@
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+      {% if g.user['email'] == 'wellington@admin.com' %}
+        <li><a href="{{ url_for('movies.register') }}">Register Movie</a>
+      {% endif %}
     {% else %}
       <li><a href="{{ url_for('auth.register') }}">Register</a>
       <li><a href="{{ url_for('auth.login') }}">Log In</a>
