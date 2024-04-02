@@ -22,34 +22,61 @@ HOST = 'https://www.omdbapi.com/'
 @login_required
 def register():
     if request.method == 'POST':
-        movie_title = request.form['movie-name']
+        title = request.form['movie-title']
 
         db = get_db()
         error = None
 
-        if not movie_title:
+        if not title:
             error = 'Movie Title is required.'
 
-        if error is None:
-            response = requests.get(f'{HOST}?t={movie_title}&apikey={API_KEY}&plot=full')
-            title = response.json()
 
-            db.execute(
-                """INSERT INTO movie
-                    (title, plot, year,
-                    released, runtime, gender,
-                    director, poster, imdbRating)
-                   VALUES(?,?,?,?,?,?,?,?,?)""",
-                (
-                    title['Title'], title['Plot'], title['Year'],
-                    title['Released'], title['Runtime'], title['Genre'],
-                    title['Director'], title['Poster'], title['imdbRating']
-                ),
-            )
-            db.commit()
-            error = "Movie Registered!"
-        else:
-            error = "Movie not found, sorry :("
+        if error is None:
+            response = requests.get(f'{HOST}?t={title}&apikey={API_KEY}&plot=full')
+            
+
+            title = response.json()
+            try:
+                db.execute(
+                    """INSERT INTO movies
+                        (title, plot, released, runtime,
+                        gender, director, poster, imdbRating)
+                    VALUES(?,?,?,?,?,?,?,?)""",
+                    (
+                        title['Title'], title['Plot'], title['Released'],
+                        title['Runtime'], title['Genre'], title['Director'],
+                        title['Poster'], title['imdbRating']
+                    ),
+                )
+                db.commit()
+                error = "Movie Registered!"
+            except KeyError as e:
+                error = 'Movie not Found.'
 
         flash(error)
-    return render_template('user_actions/register_movie.html')
+    return render_template('movies/register_movie.html')
+
+
+@bp.route('/catalog', methods=('GET', 'POST'))
+def catalog():
+    db = get_db()
+    
+    movies = db.execute(
+        'SELECT * FROM movies'
+    ).fetchall()
+    
+    return render_template('movies/catalog.html', movies=movies)
+
+
+@bp.route('/search', methods=('GET', 'POST'))
+def search():
+    if request.method == 'POST':
+        title = request['title']
+        director = request['director']
+    
+        db = get_db()
+        
+        db.execute(
+            'SELECT * FROM movies WHERE title = ?, director = ?',
+            (title, director),
+        )    
