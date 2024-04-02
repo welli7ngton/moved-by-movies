@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Register Movie or Serie</h1>
+<form method="POST">
+    <label for="movie-title">Movie Name</label>
+    <input type="text" name="movie-title" id="movie-title" required>
+    <input type="submit" value="Register">
+</form>
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Catalog</h1>
+    {% for movie in movies %}
+        <div name="single-movie">
+            {% if movie['poster'] != 'N/A' %}
+                <img src="{{movie['poster']}}" alt="movie poster">
+            {% else %}
+                <br><a href="#">I dont have the poster yet :,c</a></br>
+            {% endif %}
+            <br>{{movie['title']}}</br>
+            <br>{{movie['plot']}}</br>
+            <br>{{movie['released']}}</br>
+            <br>{{movie['runtime']}}</br>
+            <br>{{movie['gender']}}</br>
+            <br>{{movie['director']}}</br>
+            <br>{{movie['imdbRating']}}</br>
+        </div>
+    {% endfor %}
+{% endblock content %}
