@@ -57,7 +57,7 @@ def register():
     return render_template('movies/register_movie.html')
 
 
-@bp.route('/catalog', methods=('GET', 'POST'))
+@bp.route('/catalog', methods=('GET',))
 def catalog():
     db = get_db()
     
@@ -71,12 +71,56 @@ def catalog():
 @bp.route('/search', methods=('GET', 'POST'))
 def search():
     if request.method == 'POST':
-        title = request['title']
-        director = request['director']
-    
+        title = request.form['movie-title']
+        director = request.form['director']
+        year = request.form['year']
+        print(title)
+        print(type(director))
+        print(len(year))
         db = get_db()
+        error = None
         
-        db.execute(
-            'SELECT * FROM movies WHERE title = ?, director = ?',
-            (title, director),
-        )    
+        if not title and director == "" and year == "":
+            error = 'At least Title is required to make the search.'
+        
+        if error is None:
+            if title and director and year:
+                movies = db.execute(
+                'SELECT * FROM movies WHERE title LIKE ? OR director LIKE ? OR released LIKE ?',
+                (f'%{title}%', f'%{director}%', f'%{year}'),
+            ).fetchall()
+            elif title and director and year == "":
+                movies = db.execute(
+                'SELECT * FROM movies WHERE title LIKE ? OR director LIKE ?',
+                (f'%{title}%', f'%{director}%'),
+            ).fetchall()
+            elif title and year and director == "":
+                movies = db.execute(
+                'SELECT * FROM movies WHERE title LIKE ? OR released LIKE ?',
+                (f'%{title}%', f'%{year}'),
+            ).fetchall()
+            elif director and year and title == "":
+                movies = db.execute(
+                'SELECT * FROM movies WHERE director LIKE ? OR released LIKE ?',
+                (f'{director}', f'%{year}'),
+            ).fetchall()
+            elif director and title == "" and year == "":
+                movies = db.execute(
+                'SELECT * FROM movies WHERE director LIKE ?',
+                (f'%{director}%',),
+            ).fetchall()
+            elif year and title == "" and director == "":
+                movies = db.execute(
+                'SELECT * FROM movies WHERE released LIKE ?',
+                (f'%{year}',),
+            ).fetchall()
+            elif title and director == "" and year == "":
+                movies = db.execute(
+                'SELECT * FROM movies WHERE title LIKE ?',
+                (f'%{title}%',),
+            ).fetchall()
+
+            return render_template('movies/search.html', movies=movies)
+
+        flash(error)
+    return render_template('movies/search.html')
