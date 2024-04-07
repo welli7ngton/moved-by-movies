@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h1>{% block title %}Search &#128269;{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form  method="POST">
+        <label for="movie-title">movie-title</label>
+        <input name="movie-title" id="movie-title" class="movie-title">
+        <label for="year">Year</label>
+        <input name="year" id="year" class="year">
+        <label for="director">Director</label>
+        <input name="director" id="director" class="director">
+        <input type="submit" value="Search">
+    </form>
+    {% if movies %}
+        <h2>Search Results!</h2>
+    {% endif %}
+    {% for movie in movies %}
+        <div name="single-movie">
+            {% if movie['poster'] != 'N/A' %}
+                <img src="{{movie['poster']}}" alt="movie poster">
+            {% else %}
+                <br><a href="#">I dont have the poster yet :,c</a></br>
+            {% endif %}
+            <br>{{movie['title']}}</br>
+            <br>{{movie['plot']}}</br>
+            <br>{{movie['released']}}</br>
+            <br>{{movie['runtime']}}</br>
+            <br>{{movie['gender']}}</br>
+            <br>{{movie['director']}}</br>
+            <br>{{movie['imdbRating']}}</br>
+        </div>
+    {% endfor %}
+{% endblock %}
