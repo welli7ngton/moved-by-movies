@@ -49,7 +49,7 @@ def register():
         except HasNotEnoughLength as e:
             error = str(e)
         except HasNoUppercase as e:
-            error = str(e)       
+            error = str(e)
 
         if error is None:
             try:
