@@ -42,4 +42,7 @@ def create_app(test_config=None):
     from . import movies
     app.register_blueprint(movies.bp)
 
+    from . import profile
+    app.register_blueprint(profile.bp)
+
     return app
