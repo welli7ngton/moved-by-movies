@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h1>{% block title %}Changes{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        <label for="username">Username</label>
+        <input type="text" name="username" class="username">
+        <label for="birth">Birth</label>
+        <input type="date" name="birth" class="birth">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="password">
+        <input type="submit" value="Submit">
+    </form>
+
+    <a href="{{url_for('profile.change_password')}}">Change password</a>
+{% endblock content %}
