@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h1>{% block title %}Profile{% endblock %}</h1>
+{% endblock %}
+{% block content %}
+    <div class="user-data">
+        <ul>
+            <li>Username: {{g.user['username']}}</li>
+            <li>Email: {{g.user['email']}}</li>
+            <li>Birth: {{g.user['birth']}}</li>
+        </ul>
+    </div>
+    <div class="changes">
+        <a href="{{url_for('profile.change_username_and_birth')}}">Edit profile</a>
+    </div>
+{% endblock content %}
