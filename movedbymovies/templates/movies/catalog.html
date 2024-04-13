@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
+{% block header %}
+  <h1>{% block title %}Catalog{% endblock %}</h1>
+{% endblock %}
+
 {% block content %}
-<h1>Catalog</h1>
     {% for movie in movies %}
         <div name="single-movie">
             {% if movie['poster'] != 'N/A' %}
                 <img src="{{movie['poster']}}" alt="movie poster">
             {% else %}
-                <br><a href="#">I dont have the poster yet :,c</a></br>
+                <br>I dont have the poster yet :,c</br>
             {% endif %}
-            <br>{{movie['title']}}</br>
+            <br><a href="{{url_for('movies.movie_detail', _id=movie['id'])}}">{{movie['title']}}</a></br>
             <br>{{movie['plot']}}</br>
             <br>{{movie['released']}}</br>
             <br>{{movie['runtime']}}</br>
