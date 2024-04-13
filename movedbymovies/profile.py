@@ -59,6 +59,35 @@ def change_username_and_birth():
     return render_template('profile/change_profile.html')
 
 
+@bp.route('/finish_profile', methods=('GET', 'POST'))
+@login_required
+def finish_profile():
+    if request.method == 'POST':
+        bio = request.form['bio']
+        cep = request.form['cep']
+        city = request.form['city']
+        address = request.form['address']
+        street = request.form['street']
+        number = request.form['number']
+        neighborhood = request.form['neighborhood']
+
+        db = get_db()
+
+        db.execute(
+            """UPDATE users SET
+            bio = ?, cep = ?,
+            city = ?, address = ?, street = ?
+            number = ?, neighborhood = ?
+            WHERE id = ?""",
+            (bio, cep, city, address, street,
+                number, neighborhood, session.get('user_id')),
+        )
+        db.commit()
+        flash('Data registered!')
+        return redirect(url_for('profile.profile'))
+    return render_template('profile/finish_profile.html')
+
+
 @bp.route('/change-password', methods=('GET', 'POST'))
 @login_required
 def change_password():
