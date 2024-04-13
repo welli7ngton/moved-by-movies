@@ -40,18 +40,23 @@ def register():
                 db.execute(
                     """INSERT INTO movies
                         (title, plot, released, runtime,
-                        gender, director, poster, imdbRating)
-                    VALUES(?,?,?,?,?,?,?,?)""",
+                        gender, director, poster, imdbRating,
+                        actors, awards, totalSeasons, country,
+                        language)
+                    VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                     (
                         title['Title'], title['Plot'], title['Released'],
                         title['Runtime'], title['Genre'], title['Director'],
-                        title['Poster'], title['imdbRating']
+                        title['Poster'], title['imdbRating'],
+                        title['actors'], title['awards'],
+                        title['totalSeasons'], title['country'],
+                        title['language']
                     ),
                 )
                 db.commit()
-                error = "Movie Registered!"
+                flash('Movie Registered!')
             except KeyError as e:
-                error = 'Movie not Found.'
+                flash('Movie not Found.')
 
         flash(error)
     return render_template('movies/register_movie.html')
@@ -62,7 +67,9 @@ def catalog():
     db = get_db()
     
     movies = db.execute(
-        'SELECT * FROM movies'
+        '''SELECT id, poster, title, plot, runtime, released,
+        gender, director, imdbRating 
+        FROM movies'''
     ).fetchall()
     
     return render_template('movies/catalog.html', movies=movies)
@@ -74,9 +81,7 @@ def search():
         title = request.form['movie-title']
         director = request.form['director']
         year = request.form['year']
-        print(title)
-        print(type(director))
-        print(len(year))
+
         db = get_db()
         error = None
         
@@ -124,3 +129,15 @@ def search():
 
         flash(error)
     return render_template('movies/search.html')
+
+
+@bp.route('/movie_detail/<int:_id>', methods=('GET',))
+def movie_detail(_id: int):
+    db = get_db()
+    
+    movie = db.execute(
+        'SELECT * FROM movies WHERE id = ?',
+        (_id,),
+    ).fetchall()
+
+    return render_template('movies/movie_detail.html', movie=movie)
