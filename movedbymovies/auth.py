@@ -3,7 +3,7 @@ import functools
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request,
-    session, url_for, jsonify
+    session, url_for
 )
 
 from werkzeug.security import (
@@ -43,13 +43,13 @@ def register():
         try:
             ValidatePassword(password)
         except HasNoPunctuation as e:
-            return jsonify({'error': f'{str(e)}'})
+            error = str(e)
         except HasNoNumbers as e:
-            return jsonify({'error': f'{str(e)}'})
+            error = str(e)
         except HasNotEnoughLength as e:
-            return jsonify({'error': f'{str(e)}'})
+            error = str(e)
         except HasNoUppercase as e:
-            return jsonify({'error': f'{str(e)}'})
+            error = str(e)
 
         if error is None:
             try:
