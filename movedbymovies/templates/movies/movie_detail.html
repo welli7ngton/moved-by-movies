@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>{% block title %}{{movie[0]['title']}}{% endblock %}</h1>
+{% endblock header %}
+
+{% block content %}
+    <img src="{{movie[0]['poster']}}" alt="{{movie[0]['title']}} poster">
+    <p>{{movie[0]['released']}}</p>
+    <p>{{movie[0]['runtime']}}</p>
+    <p>{{movie[0]['gender']}}</p>
+    <p>{{movie[0]['actors']}}</p>
+    <p>{{movie[0]['director']}}</p>
+    <p>{{movie[0]['totalSeasons']}}</p>
+    <p>{{movie[0]['country']}}</p>
+    <p>{{movie[0]['language']}}</p>
+    <p>{{movie[0]['awards']}}</p>
+    <p>{{movie[0]['imdbRating']}}</p>
+
+{% endblock content %}
