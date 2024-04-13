@@ -9,9 +9,17 @@
             <li>Username: {{g.user['username']}}</li>
             <li>Email: {{g.user['email']}}</li>
             <li>Birth: {{g.user['birth']}}</li>
+            <li>Bio: {{g.user['bio']}}</li>
+            <li>CEP: {{g.user['cep']}}</li>
+            <li>City: {{g.user['city']}}</li>
+            <li>Address: {{g.user['address']}}</li>
+            <li>Street: {{g.user['street']}}</li>
+            <li>Number: {{g.user['number']}}</li>
+            <li>Neighborhood: {{g.user['neighborhood']}}</li>
+            <li>Created AT: {{g.user['created_at']}}</li>
         </ul>
     </div>
-    <div class="changes">
-        <a href="{{url_for('profile.change_username_and_birth')}}">Edit profile</a>
-    </div>
+    <a href="{{url_for('profile.change_username_and_birth')}}">Edit profile</a>
+    <br>
+    <a href="{{url_for('profile.finish_profile')}}">Finish profile</a>
 {% endblock content %}
