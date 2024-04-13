@@ -6,15 +6,16 @@
 
 {% block content %}
     <img src="{{movie[0]['poster']}}" alt="{{movie[0]['title']}} poster">
-    <p>{{movie[0]['released']}}</p>
-    <p>{{movie[0]['runtime']}}</p>
-    <p>{{movie[0]['gender']}}</p>
-    <p>{{movie[0]['actors']}}</p>
-    <p>{{movie[0]['director']}}</p>
-    <p>{{movie[0]['totalSeasons']}}</p>
-    <p>{{movie[0]['country']}}</p>
-    <p>{{movie[0]['language']}}</p>
-    <p>{{movie[0]['awards']}}</p>
-    <p>{{movie[0]['imdbRating']}}</p>
+    <p>Plot: {{movie[0]['plot']}}</p>
+    <p>Released: {{movie[0]['released']}}</p>
+    <p>Runtime: {{movie[0]['runtime']}}</p>
+    <p>Gender: {{movie[0]['gender']}}</p>
+    <p>Main Actors: {{movie[0]['actors']}}</p>
+    <p>Director: {{movie[0]['director']}}</p>
+    <p>Writer: {{movie[0]['writer']}}</p>
+    <p>Country: {{movie[0]['country']}}</p>
+    <p>Language: {{movie[0]['language']}}</p>
+    <p>Awards: {{movie[0]['awards']}}</p>
+    <p>IMDB Rating: {{movie[0]['imdbRating']}}</p>
 
 {% endblock content %}
