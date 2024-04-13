@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>{% block title %}Finish Profile{% endblock %}</h1>
+{% endblock header %}
+{% block content %}
+    <form method="post">
+        <div class="user-data">
+            <ul>
+                <label for="bio">Bio:</label>
+                <input type="text" maxlength="700" placeholder="Talk about you ;)" name="bio">
+                <label for="cep">CEP:</label>
+                <input name="cep" type="text" maxlength="9" placeholder="00000-000">
+                <label for="city">City:</label>
+                <input type="text" placeholder="Fortaleza" name="city">
+                <label for="address">Address:</label>
+                <input type="text" placeholder="Centro" name="address">
+                <label for="street">Street:</label>
+                <input type="text" placeholder="Street 1, Av 2, neighborhood 3"  name="street">
+                <label for="number">Number:</label>
+                <input type="text" placeholder="0000" name="number">
+            </ul>
+        </div>
+    </form>
+{% endblock content %}
