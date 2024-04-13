@@ -1,45 +1,44 @@
-import os
-import requests
-from dotenv import load_dotenv
+# flake8: noqa
+import unittest
 
-load_dotenv()
+import sys
+from pathlib import Path
+file = Path(__file__).resolve()
+parent, root = file.parent, file.parents[1]
+sys.path.append(str(root))
 
-
-# home
-def test_home():
-    res = requests.get('http://127.0.0.1:5000/')
-    assert res.status_code == 200
-
-
-# auth
-def test_register():
-    res = requests.get('http://127.0.0.1:5000/auth/register')
-    assert res.status_code == 200
+from movedbymovies import create_app
 
 
-def test_login():
-    res = requests.get('http://127.0.0.1:5000/auth/login')
-    assert res.status_code == 200
+class TestRoutes(unittest.TestCase):
+    def setUp(self) -> None:
+        self.app = create_app()
+        self.test_client = self.app.test_client()
 
-
-# movies
-def test_catalog():
-    res = requests.get('http://127.0.0.1:5000/movies/catalog')
-    assert res.status_code == 200
-
-
-def test_search():
-    res = requests.get('http://127.0.0.1:5000/movies/search')
-    assert res.status_code == 200
-
-
-def test_register_movie():
-    user = {
-        'email': os.getenv('USER_EMAIL'),
-        'password': os.getenv('PASSWORD'),
-    }
-
-    with requests.post('http://127.0.0.1:5000/auth/login', data=user) as sess:
-        res = requests.get('http://127.0.0.1:5000/movies/register')
-        assert sess.status_code == 200
+    def test_home(self):
+        res = self.test_client.get('/')
         assert res.status_code == 200
+        assert '<title> Home  - Moved By Movies</title>' in res.text
+
+    def test_register_route(self):
+        res = self.test_client.get('/auth/register')
+        assert '<title>Register - Moved By Movies</title>' in res.text
+        assert res.status_code == 200
+    
+    def test_login_route(self):
+        res = self.test_client.get('/auth/login')
+        assert '<title>Log In - Moved By Movies</title>' in res.text
+        assert res.status_code == 200
+        
+    def test_catalog_route(self):
+        res = self.test_client.get('/movies/catalog')
+        assert '<title>Catalog - Moved By Movies</title>' in res.text
+        assert res.status_code == 200
+
+    def test_search(self):
+        res = self.test_client.get('/movies/search')
+        assert 'Search' in res.text
+        assert res.status_code == 200
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
