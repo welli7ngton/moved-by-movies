@@ -7,11 +7,11 @@
 {% block content %}
     <form  method="POST">
         <label for="movie-title">movie-title</label>
-        <input name="movie-title" id="movie-title" class="movie-title">
+        <input name="movie-title" id="movie-title" class="movie-title" placeholder="Hedwig and the Angry Inch">
         <label for="year">Year</label>
-        <input name="year" id="year" class="year">
+        <input name="year" id="year" class="year" placeholder="2001">
         <label for="director">Director</label>
-        <input name="director" id="director" class="director">
+        <input name="director" id="director" class="director" placeholder="John Cameron">
         <input type="submit" value="Search">
     </form>
     {% if movies %}
