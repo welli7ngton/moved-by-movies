@@ -34,31 +34,30 @@ def register():
         if error is None:
             response = requests.get(f'{HOST}?t={title}&apikey={API_KEY}&plot=full')
             
-
             title = response.json()
+
             try:
                 db.execute(
                     """INSERT INTO movies
                         (title, plot, released, runtime,
                         gender, director, poster, imdbRating,
-                        actors, awards, totalSeasons, country,
+                        actors, awards, writer, country,
                         language)
                     VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                     (
                         title['Title'], title['Plot'], title['Released'],
                         title['Runtime'], title['Genre'], title['Director'],
                         title['Poster'], title['imdbRating'],
-                        title['actors'], title['awards'],
-                        title['totalSeasons'], title['country'],
-                        title['language']
+                        title['Actors'], title['Awards'],
+                        title['Writer'], title['Country'],
+                        title['Language']
                     ),
                 )
                 db.commit()
                 flash('Movie Registered!')
             except KeyError as e:
-                flash('Movie not Found.')
+                flash('Movie not Found :(')
 
-        flash(error)
     return render_template('movies/register_movie.html')
 
 
