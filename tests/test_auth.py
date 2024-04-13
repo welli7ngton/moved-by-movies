@@ -1,66 +1,93 @@
-# flake8:noqa
-import requests
+# flake8: noqa
+import unittest
 
 
-def test_register_post():
-    data_json = {
-        'username': 'test',
-        'email': 'testing1@test.com',
-        'password': '1AmStr0ng!',
-        'confirm-password': '1AmStr0ng!',
-        'birth': '2000-01-01'
-    }
-    res = requests.post('http://127.0.0.1:5000/auth/register', data=data_json)
-    assert res.status_code == 200
+import sys
+from pathlib import Path
+file = Path(__file__).resolve()
+parent, root = file.parent, file.parents[1]
+sys.path.append(str(root))
+
+from movedbymovies import create_app
 
 
-def test_register_post_get_an_PasswordHasNoPunctuation_error():
-    data_json = {
-        'username': 'test',
-        'email': 'testing1@test.com',
-        'password': '1AmStr0ng',
-        'confirm-password': '1AmStr0ng',
-        'birth': '2000-01-01'
-    }
-    res = requests.post('http://127.0.0.1:5000/auth/register', data=data_json)
-    assert res.json() == {"error": "Password has no punctuation(!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~)"}
-    assert res.status_code == 200
+class TestAuth(unittest.TestCase):
+    def setUp(self) -> None:
+        self.app = create_app()
+        self.test_client = self.app.test_client()
+        self.user_data = {
+                "username": "test",
+                "email": "test@test.com",
+                "birth": "01-01-1001",
+            }
+
+    def test_auth_password_has_no_punctuation(self):
+        self.user_data.update({
+            "password": "Str0ngPass",
+            "confirm-password": "Str0ngPass",
+            })
+
+        with self.test_client as c:
+            res = c.post('/auth/register',data=self.user_data)
+            self.assertIn(b'flash', res.data)
+            self.assertEqual(res.status_code, 200)
+
+    def test_auth_password_has_no_numbers(self):
+        self.user_data.update({
+            "password": "strOngpass!",
+            "confirm-password": "strOngpass!",
+        })
+
+        with self.test_client as c:
+            res = c.post('/auth/register',data=self.user_data)
+            self.assertIn(b'flash', res.data)
+            self.assertEqual(res.status_code, 200)
+
+    def test_auth_password_has_no_enough_length(self):
+        self.user_data.update({
+                "password": "Str0!",
+                "confirm-password": "Str0!",
+            })
+
+        with self.test_client as c:
+            res = c.post('/auth/register',data=self.user_data)
+            self.assertIn(b'flash', res.data)
+            self.assertEqual(res.status_code, 200)
+
+    def test_auth_password_has_no_uppercase(self):
+        self.user_data.update({
+                "password": "str0ngpass!",
+                "confirm-password": "str0ngpass!",
+            }) 
+
+        with self.test_client as c:
+            res = c.post('/auth/register',data=self.user_data)
+            self.assertIn(b'flash', res.data)
+            self.assertEqual(res.status_code, 200)
+    
+    def test_user_email_already_exists(self):
+        self.user_data.update({
+            "email": "wellington@admin.com",
+            "password": "str0ngPass!",
+            "confirm-password": "str0ngPass!",
+        })
+        
+        with self.test_client as c:
+            res = c.post('/auth/register', data=self.user_data)
+            self.assertIn(b'flash', res.data)
+            self.assertEqual(res.status_code, 200)
+    
+    def test_fail_login_error_email(self):
+        data ={
+            "password": "1AmStr0ng!",
+            "email": "test@not_exists.com",
+        }
+        
+        with self.test_client as c:
+            res = c.post('/auth/login', data=data)
+            self.assertIn(b'flash', res.data)
+            self.assertEqual(res.status_code, 200)
 
 
-def test_register_post_get_an_HasNoNumbers_error():
-    data_json = {
-        'username': 'test',
-        'email': 'testing1@test.com',
-        'password': 'IAmStrOng!',
-        'confirm-password': 'IAmStrOng!',
-        'birth': '2000-01-01'
-    }
-    res = requests.post('http://127.0.0.1:5000/auth/register', data=data_json)
-    assert res.json() == {"error": "Password has no numbers (0123456789)"}
-    assert res.status_code == 200
-
-
-def test_register_post_get_an_HasNotEnoughLength_error():
-    data_json = {
-        'username': 'test',
-        'email': 'testing1@test.com',
-        'password': '1!Qa',
-        'confirm-password': '1!Qa',
-        'birth': '2000-01-01'
-    }
-    res = requests.post('http://127.0.0.1:5000/auth/register', data=data_json)
-    assert res.json() == {"error": "Password has no enough length(8)"}
-    assert res.status_code == 200
-
-
-def test_register_post_get_an_HasNoUppercase_error():
-    data_json = {
-        'username': 'test',
-        'email': 'testing1@test.com',
-        'password': '1!qazwsx',
-        'confirm-password': '1!qazwsx',
-        'birth': '2000-01-01'
-    }
-    res = requests.post('http://127.0.0.1:5000/auth/register', data=data_json)
-    assert res.json() == {"error": "Password has no uppercase(ABCDEFGHIJKLMNOPQRSTUVWXYZ)"}
-    assert res.status_code == 200
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
