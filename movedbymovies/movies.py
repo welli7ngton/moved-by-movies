@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import requests
 
 from flask import (
-    Blueprint, flash, render_template, request,
+    Blueprint, flash, render_template, request
 )
 
 from movedbymovies.db import get_db
@@ -61,7 +61,7 @@ def register():
     return render_template('movies/register_movie.html')
 
 
-@bp.route('/catalog', methods=('GET',))
+@bp.route('/catalog', methods=('GET','POST'))
 def catalog():
     db = get_db()
     
@@ -124,7 +124,7 @@ def search():
                 (f'%{title}%',),
             ).fetchall()
 
-            return render_template('movies/search.html', movies=movies)
+            return render_template('movies/search.html', movies=movies, total=len(movies))
 
         flash(error)
     return render_template('movies/search.html')
