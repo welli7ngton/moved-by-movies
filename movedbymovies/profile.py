@@ -3,6 +3,8 @@ from flask import (
     session, url_for, jsonify
 )
 
+import requests
+
 from movedbymovies.auth import login_required
 from movedbymovies.db import get_db
 
@@ -65,22 +67,23 @@ def finish_profile():
     if request.method == 'POST':
         bio = request.form['bio']
         cep = request.form['cep']
-        city = request.form['city']
-        address = request.form['address']
-        street = request.form['street']
-        number = request.form['number']
-        neighborhood = request.form['neighborhood']
+
+        res = requests.get(f'https://viacep.com.br/ws/{cep}/json/')
+
+        data = res.json()
+
+        print(data)
 
         db = get_db()
 
         db.execute(
             """UPDATE users SET
             bio = ?, cep = ?,
-            city = ?, address = ?, street = ?
-            number = ?, neighborhood = ?
+            city = ?, address = ?,
+            street = ?, uf = ?
             WHERE id = ?""",
-            (bio, cep, city, address, street,
-                number, neighborhood, session.get('user_id')),
+            (bio, cep, data['localidade'], data['logradouro'], data['bairro'],
+                data['uf'], session.get('user_id')),
         )
         db.commit()
         flash('Data registered!')
