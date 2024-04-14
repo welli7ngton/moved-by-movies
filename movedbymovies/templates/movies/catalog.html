@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block content %}
+
+    <a href="{{url_for('movies.search')}}">Search &#128269;</a>
+
     {% for movie in movies %}
         <div name="single-movie">
             {% if movie['poster'] != 'N/A' %}

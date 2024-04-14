@@ -15,7 +15,7 @@
         <input type="submit" value="Search">
     </form>
     {% if movies %}
-        <h2>Search Results!</h2>
+        <h2>Search Results!({{total}})</h2>
     {% endif %}
     {% for movie in movies %}
         <div name="single-movie">
@@ -24,7 +24,7 @@
             {% else %}
                 <br><a href="#">I dont have the poster yet :,c</a></br>
             {% endif %}
-            <br>{{movie['title']}}</br>
+            <a href="{{url_for('movies.movie_detail', _id=movie['id'])}}"><h3>{{movie['title']}}</h3></a>
             <br>{{movie['plot']}}</br>
             <br>{{movie['released']}}</br>
             <br>{{movie['runtime']}}</br>
