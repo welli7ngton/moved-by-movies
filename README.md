@@ -34,6 +34,8 @@ Banco de Dados: SQLite
 
 Integração Externa: OMDb API, ViaCEP(ainda não implementado)
 
+# Endpoints
+
 | Endpoint | Methods | URL |
 |----------|----------|----------|
 | auth.login | GET, POST  | /auth/login |
