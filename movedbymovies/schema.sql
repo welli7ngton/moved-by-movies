@@ -14,7 +14,7 @@ CREATE TABLE users (
   city TEXT NULL,
   address TEXT NULL,
   street TEXT NULL,
-  number TEXT NULL,
+  uf TEXT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
