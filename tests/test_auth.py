@@ -85,8 +85,8 @@ class TestAuth(unittest.TestCase):
         
         with self.test_client as c:
             res = c.post('/auth/login', data=data)
-            self.assertIn(b'flash', res.data)
             self.assertEqual(res.status_code, 200)
+            self.assertIn(b'flash', res.data)
 
 
 if __name__ == '__main__':
