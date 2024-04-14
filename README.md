@@ -32,7 +32,7 @@ Framework: Flask
 
 Banco de Dados: SQLite
 
-Integração Externa: OMDb API, ViaCEP(ainda não implementado)
+Integração Externa: OMDb API, ViaCEP
 
 # Endpoints
 
