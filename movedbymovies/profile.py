@@ -88,7 +88,7 @@ def finish_profile():
     return render_template('profile/finish_profile.html')
 
 
-@bp.route('/change-password', methods=('GET', 'POST'))
+@bp.route('/change_password', methods=('GET', 'POST'))
 @login_required
 def change_password():
     if request.method == 'POST':

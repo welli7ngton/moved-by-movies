@@ -46,7 +46,7 @@ Integração Externa: OMDb API, ViaCEP(ainda não implementado)
 | movies.movie_detail  | GET | /movies/movie_detail/int:_id  |
 | movies.register  | GET, POST  | /movies/register  |
 | movies.search  | GET, POST  | /movies/search  |
-| profile.change_password  | GET, POST  | /profile/change-password  |
+| profile.change_password  | GET, POST  | /profile/change_password  |
 | profile.change_username_and_birth  | GET, POST  | /profile/changes  |
 | profile.finish_profile  | GET, POST  | /profile/finish_profile  |
 | profile.profile  | GET  | /profile/me  |
