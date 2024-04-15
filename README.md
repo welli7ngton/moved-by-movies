@@ -36,20 +36,28 @@ Integração Externa: OMDb API, ViaCEP
 
 # Endpoints
 
-| Endpoint | Methods | URL |
-|----------|----------|----------|
-| auth.login | GET, POST  | /auth/login |
-| auth.logout  | GET | /auth/logout  |
-| auth.register | GET, POST  | /auth/register  |
-| home  | GET | /  |
-| movies.catalog  | GET  | /movies/catalog  |
-| movies.movie_detail  | GET | /movies/movie_detail/int:_id  |
-| movies.register  | GET, POST  | /movies/register  |
-| movies.search  | GET, POST  | /movies/search  |
-| profile.change_password  | GET, POST  | /profile/change_password  |
-| profile.change_username_and_birth  | GET, POST  | /profile/changes  |
-| profile.finish_profile  | GET, POST  | /profile/finish_profile  |
-| profile.profile  | GET  | /profile/me  |
+| Rota                              | Métodos  | Endpoint                                 |
+|-----------------------------------|----------|------------------------------------------|
+| admin.delete_user                 | GET, POST| /admin/delete_user/<int:_id>            |
+| admin.home                        | GET      | /admin/                                  |
+| admin.login                       | GET, POST| /admin/login                             |
+| admin.logout                      | GET      | /admin/logout                            |
+| admin.register_movie              | GET, POST| /admin/register                          |
+| admin.single_user                 | GET, POST| /admin/single_user/<int:_id>             |
+| admin.users                       | GET, POST| /admin/users                             |
+| auth.login                        | GET, POST| /auth/login                              |
+| auth.logout                       | GET      | /auth/logout                             |
+| auth.register                     | GET, POST| /auth/register                           |
+| home                              | GET      | /                                        |
+| movies.catalog                    | GET, POST| /movies/catalog                          |
+| movies.movie_detail               | GET      | /movies/movie_detail/<int:_id>           |
+| movies.search                     | GET, POST| /movies/search                           |
+| profile.change_password           | GET, POST| /profile/change_password                 |
+| profile.change_username_and_birth | GET, POST| /profile/changes                         |
+| profile.finish_profile            | GET, POST| /profile/finish_profile                  |
+| profile.profile                   | GET      | /profile/me                              |
+| static                            | GET      | /static/<path:filename>                  |
+
 
 
                                         
