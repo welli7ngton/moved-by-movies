@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS purchases;
 DROP TABLE IF EXISTS admin;
+DROP TABLE IF EXISTS log_deletes;
 
 CREATE TABLE users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -15,6 +16,7 @@ CREATE TABLE users (
   address TEXT NULL,
   street TEXT NULL,
   uf TEXT NULL,
+  is_admin INTEGER DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -48,11 +50,22 @@ CREATE TABLE purchases (
 
 CREATE TABLE admin (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id INTEGER,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  email TEXT NOT NULL,
+  password TEXT NOT NULL
 );
 
-INSERT INTO users(username, email, password)
-VALUES("admin", "admin", "scrypt:32768:8:1$lKJvDyRQRJKfJ6Me$6e870a499da612c9b9f501287e0f920fd307d721fa9da4f97a98298bbf522e9060c74e8447c4b39c46882bdcbeaab328b8b109225a131778817414c82e57decf");
+CREATE TABLE log_deletes (
+  delete_date DATE DEFAULT CURRENT_TIMESTAMP,
+  username TEXT NOT NULL,
+  motivation TEXT NOT NULL,
+  deleted_username TEXT NOT NULL
+);
 
-INSERT INTO admin(user_id) VALUES(1);
+INSERT INTO users(username, email, password, is_admin)
+VALUES("welli7ngton", "admin", "scrypt:32768:8:1$lKJvDyRQRJKfJ6Me$6e870a499da612c9b9f501287e0f920fd307d721fa9da4f97a98298bbf522e9060c74e8447c4b39c46882bdcbeaab328b8b109225a131778817414c82e57decf", 1);
+
+INSERT INTO users(username, email, password)
+VALUES("test", "test@test.com", "scrypt:32768:8:1$lKJvDyRQRJKfJ6Me$6e870a499da612c9b9f501287e0f920fd307d721fa9da4f97a98298bbf522e9060c74e8447c4b39c46882bdcbeaab328b8b109225a131778817414c82e57decf");
+
+INSERT INTO admin(email, password) SELECT email, password FROM users WHERE id = 1;
+
