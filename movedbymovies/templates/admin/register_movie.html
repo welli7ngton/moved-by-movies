@@ -1,0 +1,11 @@
+{% extends "admin/base.html" %}
+{% block header %}
+    <h1>{% block title %}Regiser Movie or Serie{% endblock %}</h1>
+{% endblock header %}
+{% block content %}
+<form method="POST">
+    <label for="movie-title">Movie Name</label>
+    <input type="text" name="movie-title" id="movie-title" placeholder="Hedwig and the Angry Inch" required>
+    <input type="submit" value="Register">
+</form>
+{% endblock content %}

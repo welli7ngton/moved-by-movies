@@ -1,0 +1,34 @@
+<!doctype html>
+<title>{% block title %} Admin {% endblock %} - Moved By Movies</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  
+  <ul>
+    {% if g.user %}
+        <li><span>{{ g.user['username'] }}</span></li>
+        <li><a href="{{ url_for('admin.register_movie') }}">Register Movie</a></li>
+        <li><a href="{{ url_for('admin.logout') }}">Log Out</a></li>
+        <li><a href="{{ url_for('admin.users') }}">Users</a></li>
+        <li><a href="{{ url_for('movies.catalog') }}">Catalog</a></li>
+    {% else %}
+        <li><a href="{{url_for('admin.login')}}">Log In</li></a>
+    {% endif %}
+  </ul>
+
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
+
+{% block footer %}
+    <footer>
+        <span><a href="https://www.github.com/welli7ngton" target="_blank">github</a></span>
+        <span><a href="https://www.linkedin.com/in/welli7ngton" target="_blank">linkedin</a></span>
+    </footer>
+{% endblock %}

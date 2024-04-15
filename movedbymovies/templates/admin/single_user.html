@@ -1,0 +1,18 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+    <div class="content">
+        <p>Username: {{user['username']}}</p>
+        <p>Email: {{user['email']}}</p>
+        <p>Hashed Password: {{user['password']}}</p>
+        <p>Bio: {{user['bio']}}</p>
+        <p>Created At: {{user['created_at']}}</p>
+        <p>Is Admin: {{user['is_admin']}}</p>
+        <form method="post">
+            <label for="set-admin">Set Admin: </label>
+            <input type="checkbox" name="set-admin" value="True">
+            <input type="submit" value="Set Changes">
+        </form>
+        <a href="{{url_for('admin.delete_user', _id=user['id'])}}">Delete user</a>
+    </div>
+{% endblock content %}

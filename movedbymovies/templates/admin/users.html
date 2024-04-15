@@ -1,0 +1,10 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+    <h1>Users</h1>
+    <div class="user">
+        {% for user in users %}
+            <a href="{{url_for('admin.single_user', _id=user['id'])}}"><p>{{user['username']}}</p></a>
+        {% endfor %}
+    </div>
+{% endblock content %}
