@@ -90,3 +90,18 @@ def movie_detail(_id: int):
         return redirect(url_for('cart.add_movie', movie_id=movie['id']))
 
     return render_template('movies/movie_detail.html', movie=movie)
+
+
+@bp.route('/my_movies', methods=('GET',))
+def my_movies():
+    db = get_db()
+    movies = db.execute(
+        """SELECT * FROM movies
+        INNER JOIN purchases ON purchases.movie_id = movies.id
+        WHERE user_id = ?
+        """,
+        (session.get('user_id'),)
+    ).fetchall()
+    if movies:
+        return render_template('movies/my_movies.html', movies=movies)
+    return render_template('movies/my_movies.html', movies=False)
