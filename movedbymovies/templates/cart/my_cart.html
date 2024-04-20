@@ -9,10 +9,10 @@
         <h2>Your cart is empty :v</h2>
     {% else %}
         {% for movie, data in movies.items() %}
-            <h2>{{movie}}</h2>
-            <img src="{{data[0]}}" alt="{{key}} poster.">
-            <p>{{data[1]}}</p>
+            <a href="{{url_for('movies.movie_detail', _id=data[0])}}"><h2>{{movie}}</h2></a>
+            <img src="{{data[1]}}" alt="{{movie}} poster.">
             <p>{{data[2]}}</p>
+            <p>{{data[3]}}</p>
             <form method="POST">
                 <input type="hidden" name="removed-movie" value="{{movie}}">
                 <button>Remove from Cart</button>
