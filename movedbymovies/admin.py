@@ -88,6 +88,7 @@ def register_movie():
             title = response.json()
 
             try:
+                Trigger.movie_registered(session.get('user_id'), db)
                 db.execute(
                     """INSERT INTO movies
                         (title, plot, released, runtime,
@@ -156,14 +157,9 @@ def delete_user(_id):
     if request.method == 'POST':
         password = request.form['password']
         user = db.execute('SELECT * FROM admin WHERE id = ?', (session.get('user_id'),)).fetchone()
-        deleted_user = db.execute('SELECT * FROM users WHERE id = ?', (_id,)).fetchone()
 
-        if user and check_password_hash(user['password'], password):
-            # print(request.form['motivation'])
-            # print(user[1])
-            # print(db)
-            # print(deleted_user['username'])
-            Trigger.make_log(request.form['motivation'],user[1], deleted_user['username'], db)
+        if session and check_password_hash(user['password'], password):
+            Trigger.delete(session.get('user_id'), request.form['motivation'], db)
             db.execute('DELETE FROM users WHERE id = ?', (_id,))
             db.commit()
             flash('User Deleted!')
