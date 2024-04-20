@@ -13,6 +13,10 @@
             <img src="{{data[0]}}" alt="{{key}} poster.">
             <p>{{data[1]}}</p>
             <p>{{data[2]}}</p>
+            <form method="POST">
+                <input type="hidden" name="removed-movie" value="{{movie}}">
+                <button>Remove from Cart</button>
+            </form>
         {% endfor %}
         <h2>Total Price: {{price}}</h2>
     {% endif %}
