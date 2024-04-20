@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block header %}
+    <h1>{% block title %}My Movies{% endblock %}</h1>
+{% endblock header %}
+
+{% block content %}
+{% if not movies%}
+    <p><strong>You dont have movies yet :|</strong></p>
+{% else %}
+    {% for movie in movies %}
+        <div class="single-movie">
+            <img src="{{movie[8]}}" alt="{{movie[1]}} poster.">
+            <h3>{{movie[1]}}</h3>
+            <p>{{movie[2]}}</p>
+            <p>{{movie[3]}}</p>
+            <p>{{movie[4]}}</p>
+            <p>{{movie[5]}}</p>
+            <p>{{movie[6]}}</p>
+            <p>{{movie[7]}}</p>
+            <p>{{movie[9]}}</p>
+            <p>{{movie[10]}}</p>
+            <p>{{movie[11]}}</p>
+            <p>{{movie[12]}}</p>
+            <p>{{movie[13]}}</p>
+            <p>{{movie[15]}}</p>
+        </div>
+    {% endfor %}
+{% endif %}
+{% endblock content %}
