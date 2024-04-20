@@ -25,12 +25,13 @@
                 <br><a href="#">I dont have the poster yet :,c</a></br>
             {% endif %}
             <a href="{{url_for('movies.movie_detail', _id=movie['id'])}}"><h3>{{movie['title']}}</h3></a>
-            <br>{{movie['plot']}}</br>
-            <br>{{movie['released']}}</br>
-            <br>{{movie['runtime']}}</br>
-            <br>{{movie['gender']}}</br>
-            <br>{{movie['director']}}</br>
-            <br>{{movie['imdbRating']}}</br>
+            <p>{{movie['plot']}}</p>
+            <p>{{movie['released']}}</p>
+            <p>{{movie['runtime']}}</p>
+            <p>{{movie['gender']}}</p>
+            <p>{{movie['director']}}</p>
+            <p>{{movie['imdbRating']}}</p>
+            <p>{{movie['price']}}</p>
         </div>
     {% endfor %}
 {% endblock %}
