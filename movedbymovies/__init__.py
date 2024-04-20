@@ -48,4 +48,7 @@ def create_app(test_config=None):
     from . import profile
     app.register_blueprint(profile.bp)
 
+    from . import cart
+    app.register_blueprint(cart.bp)
+
     return app
