@@ -17,6 +17,7 @@ CREATE TABLE users (
   street TEXT NULL,
   uf TEXT NULL,
   is_admin INTEGER DEFAULT 0,
+  balance FLOAT NOT NULL DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
