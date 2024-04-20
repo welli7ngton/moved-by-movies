@@ -8,6 +8,7 @@
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span></li>
       <li><a href="{{ url_for('profile.profile') }}">Profile</a></li>
+      <li><a href="{{ url_for('cart.my_cart') }}">Cart</a></li>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
     {% else %}
       <li><a href="{{ url_for('auth.register') }}">Register</a></li>

@@ -1,22 +1,26 @@
 {% extends "base.html" %}
 
 {% block header %}
-    <h1>{% block title %}{{movie[0]['title']}}{% endblock %}</h1>
+    <h1>{% block title %}{{movie['title']}}{% endblock %}</h1>
 {% endblock header %}
 
 {% block content %}
-    <img src="{{movie[0]['poster']}}" alt="{{movie[0]['title']}} poster">
-    <p>Plot: {{movie[0]['plot']}}</p>
-    <p>Released: {{movie[0]['released']}}</p>
-    <p>Runtime: {{movie[0]['runtime']}}</p>
-    <p>Gender: {{movie[0]['gender']}}</p>
-    <p>Main Actors: {{movie[0]['actors']}}</p>
-    <p>Director: {{movie[0]['director']}}</p>
-    <p>Writer: {{movie[0]['writer']}}</p>
-    <p>Country: {{movie[0]['country']}}</p>
-    <p>Language: {{movie[0]['language']}}</p>
-    <p>Awards: {{movie[0]['awards']}}</p>
-    <p>IMDB Rating: {{movie[0]['imdbRating']}}</p>
-    <p>Price: {{movie[0]['price']}}</p>
+    <img src="{{movie['poster']}}" alt="{{movie['title']}} poster">
+    <p>Plot: {{movie['plot']}}</p>
+    <p>Released: {{movie['released']}}</p>
+    <p>Runtime: {{movie['runtime']}}</p>
+    <p>Gender: {{movie['gender']}}</p>
+    <p>Main Actors: {{movie['actors']}}</p>
+    <p>Director: {{movie['director']}}</p>
+    <p>Writer: {{movie['writer']}}</p>
+    <p>Country: {{movie['country']}}</p>
+    <p>Language: {{movie['language']}}</p>
+    <p>Awards: {{movie['awards']}}</p>
+    <p>IMDB Rating: {{movie['imdbRating']}}</p>
+    <p>Price: {{movie['price']}}</p>
+
+    <form method="POST">
+        <button>Add to Cart</button>
+    </form>
 
 {% endblock content %}
