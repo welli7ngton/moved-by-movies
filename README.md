@@ -56,7 +56,7 @@ Integração Externa: OMDb API, ViaCEP
 | profile.change_username_and_birth | GET, POST| /profile/changes                         |
 | profile.finish_profile            | GET, POST| /profile/finish_profile                  |
 | profile.profile                   | GET      | /profile/me                              |
-| static                            | GET      | /static/<path:filename>                  |
+| static                            | GET      | /static/style.css                        |
 
 
 
