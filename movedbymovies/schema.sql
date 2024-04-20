@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS purchases;
 DROP TABLE IF EXISTS admin;
-DROP TABLE IF EXISTS log_deletes;
+DROP TABLE IF EXISTS logs;
 
 CREATE TABLE users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,11 +54,12 @@ CREATE TABLE admin (
   password TEXT NOT NULL
 );
 
-CREATE TABLE log_deletes (
-  delete_date DATE DEFAULT CURRENT_TIMESTAMP,
-  username TEXT NOT NULL,
+CREATE TABLE logs (
+  admin_id INTEGER NOT NULL,
+  type_operation TEXT NOT NULL,
   motivation TEXT NOT NULL,
-  deleted_username TEXT NOT NULL
+  delete_date NOT NULL,
+  FOREIGN KEY (admin_id) REFERENCES admin(id)
 );
 
 INSERT INTO users(username, email, password, is_admin)
@@ -68,4 +69,3 @@ INSERT INTO users(username, email, password)
 VALUES("test", "test@test.com", "scrypt:32768:8:1$lKJvDyRQRJKfJ6Me$6e870a499da612c9b9f501287e0f920fd307d721fa9da4f97a98298bbf522e9060c74e8447c4b39c46882bdcbeaab328b8b109225a131778817414c82e57decf");
 
 INSERT INTO admin(email, password) SELECT email, password FROM users WHERE id = 1;
-
