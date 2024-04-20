@@ -47,9 +47,11 @@ Bem-vindo ao repositório da API Moved By Movies! Esta API simula o processo de 
 Para começar a usar Moved By Movies, siga estes passos:
 - Clonar o Repositório: `git clone https://github.com/seunomeusuario/moved-by-movies-api.git](https://github.com/welli7ngton/moved-by-movies`
 - Instalar Dependências: `pip install -r requirements.txt`
-- Executar a Aplicação: 
-  - `flask --app movedbymovies init-db`
-  - `flask --app movedbymovies run`
+- Executar a Aplicação:
+  - inicie o banco de dados apenas na primeira vez usando esse comando:
+    `flask --app movedbymovies init-db`
+  - agora é só rodar o comando abaixo sempre que quiser iniciar a aplicação:
+    `flask --app movedbymovies run`
 - Acessar a API: Navegue até http://localhost:5000 em seu navegador web.
 
 ## Contribuições
