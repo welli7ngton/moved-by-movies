@@ -21,27 +21,32 @@ Bem-vindo ao repositório da API Moved By Movies! Esta API simula o processo de 
 
 ## Endpoints
 
-| Rota                              | Métodos  | Endpoint                                 |
-|-----------------------------------|----------|------------------------------------------|
-| admin.delete_user                 | GET, POST| /admin/delete_user/<int:_id>            |
-| admin.home                        | GET      | /admin/                                  |
-| admin.login                       | GET, POST| /admin/login                             |
-| admin.logout                      | GET      | /admin/logout                            |
-| admin.register_movie              | GET, POST| /admin/register                          |
-| admin.single_user                 | GET, POST| /admin/single_user/<int:_id>             |
-| admin.users                       | GET, POST| /admin/users                             |
-| auth.login                        | GET, POST| /auth/login                              |
-| auth.logout                       | GET      | /auth/logout                             |
-| auth.register                     | GET, POST| /auth/register                           |
-| home                              | GET      | /                                        |
-| movies.catalog                    | GET, POST| /movies/catalog                          |
-| movies.movie_detail               | GET      | /movies/movie_detail/<int:_id>           |
-| movies.search                     | GET, POST| /movies/search                           |
-| profile.change_password           | GET, POST| /profile/change_password                 |
-| profile.change_username_and_birth | GET, POST| /profile/changes                         |
-| profile.finish_profile            | GET, POST| /profile/finish_profile                  |
-| profile.profile                   | GET      | /profile/me                              |
-| static                            | GET      | /static/style.css                        |
+| Endpoint                           | Methods    | Rule                            | Descrição                                           |
+|----------------------------------- | --------- | ------------------------------- | -----------------------------------------------------|
+| admin.delete_user                  | GET, POST | /admin/delete_user/<int:_id>   | Deleta um usuário específico pelo ID (admin apenas) |
+| admin.home                         | GET       | /admin/                         | Página inicial do painel administrativo            |
+| admin.login                        | GET, POST | /admin/login                    | Página de login do administrador                    |
+| admin.logout                       | GET       | /admin/logout                   | Logout do administrador                             |
+| admin.register_movie               | GET, POST | /admin/register                 | Página de registro do filme (admin apenas)          |
+| admin.single_user                  | GET, POST | /admin/single_user/<int:_id>    | Visualiza ou atualiza detalhes de um usuário (admin)|
+| admin.users                        | GET, POST | /admin/users                    | Lista todos os usuários (admin apenas)             |
+| auth.login                         | GET, POST | /auth/login                     | Página de login do usuário                          |
+| auth.logout                        | GET       | /auth/logout                    | Logout do usuário                                   |
+| auth.register                      | GET, POST | /auth/register                  | Página de registro do usuário                       |
+| cart.add_movie                     | GET       | /cart/add_movie/<int:movie_id>  | Adiciona um filme ao carrinho de compras            |
+| cart.buy_credits                   | GET, POST | /cart/buy_credits               | Compra créditos para a conta do usuário            |
+| cart.my_cart                       | GET, POST | /cart/my_cart                   | Visualiza o carrinho de compras                    |
+| home                               | GET       | /                               | Página inicial                                      |
+| movies.catalog                     | GET, POST | /movies/catalog                 | Catálogo de filmes                                  |
+| movies.movie_detail                | GET, POST | /movies/movie_detail/<int:_id>  | Detalhes de um filme específico                     |
+| movies.my_movies                   | GET       | /movies/my_movies               | Lista de filmes do usuário                          |
+| movies.search                      | GET, POST | /movies/search                  | Pesquisa de filmes                                  |
+| profile.change_password            | GET, POST | /profile/change_password        | Altera a senha do usuário                           |
+| profile.change_username_and_birth  | GET, POST | /profile/changes                | Altera o nome de usuário e a data de nascimento     |
+| profile.finish_profile             | GET, POST | /profile/finish_profile         | Finaliza o perfil do usuário                        |
+| profile.profile                    | GET       | /profile/me                     | Visualiza o perfil do usuário                       |
+| static                             | GET       | /static/style.css         | Serviço de arquivos estáticos (CSS, JS, imagens)    |
+
 
 ## Como Começar
 Para começar a usar Moved By Movies, siga estes passos:
