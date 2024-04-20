@@ -12,14 +12,14 @@ bp = Blueprint('cart', __name__, url_prefix='/cart')
 def add_movie(movie_id):
     db = get_db()
     movie = db.execute(
-        'SELECT  title, poster, plot, price FROM movies WHERE id = ?',
+        'SELECT  title, id, poster, plot, price FROM movies WHERE id = ?',
         (movie_id,)
     ).fetchone()
     flash(f'Movie {movie["title"]} added to the cart!')
     try:
-        session['cart'].update({movie[0]: [movie[1], movie[2], movie[3]]})
+        session['cart'].update({movie[0]: [data for data in movie[1:]]})
     except KeyError:
-        session['cart'] = {movie[0]: [movie[1], movie[2], movie[3]]}
+        session['cart'] = {movie[0]: [data for data in movie[1:]]}
 
     return redirect(url_for('movies.catalog'))
 
@@ -29,7 +29,7 @@ def my_cart():
     if request.method == 'GET':
         movies = session.get('cart')
         if movies:
-            price = sum([v[2] for m, v in movies.items()])
+            price = sum([v[3] for m, v in movies.items()])
             return render_template('cart/my_cart.html', movies=movies, price=price)
         return render_template('cart/my_cart.html', movies=None, price=None)
 
