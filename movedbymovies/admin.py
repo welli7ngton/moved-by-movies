@@ -4,13 +4,14 @@ from pathlib import Path
 file = Path(__file__).resolve()
 parent, root = file.parent, file.parents[1]
 sys.path.append(str(root))
-
 import os
 from dotenv import load_dotenv
 import requests
 
+import functools
+
 from flask import (
-    Blueprint, flash, redirect, render_template, request,
+    Blueprint, flash, redirect, g, render_template, request,
     session, url_for
 )
 
@@ -19,7 +20,6 @@ from werkzeug.security import (
 )
 
 from movedbymovies.db import get_db
-from movedbymovies.auth import login_required
 from movedbymovies.util.trigger import Trigger
 
 load_dotenv()
@@ -29,8 +29,17 @@ HOST = 'https://www.omdbapi.com/'
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
 
+def admin_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('admin.login'))
+        return view(**kwargs)
+    return wrapped_view
+
 
 @bp.route('/', methods=('GET',))
+@admin_required
 def home():
     return render_template('admin/base.html')
 
@@ -70,7 +79,7 @@ def logout():
 
 
 @bp.route('/register', methods=('GET', 'POST'))
-@login_required
+@admin_required
 def register_movie():
     if request.method == 'POST':
         title = request.form['movie-title']
@@ -167,3 +176,6 @@ def delete_user(_id):
         flash('Incorrect Password')
     
     return render_template('admin/delete_user.html')
+
+
+
