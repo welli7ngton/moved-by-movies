@@ -1,6 +1,6 @@
 # flake8: noqa
 from flask import (
-    Blueprint, flash, render_template, request
+    Blueprint, flash, render_template, request, redirect, url_for, g, session
 )
 
 from movedbymovies.db import get_db
@@ -77,13 +77,16 @@ def search():
     return render_template('movies/search.html')
 
 
-@bp.route('/movie_detail/<int:_id>', methods=('GET',))
+@bp.route('/movie_detail/<int:_id>', methods=('GET', 'POST'))
 def movie_detail(_id: int):
     db = get_db()
 
     movie = db.execute(
         'SELECT * FROM movies WHERE id = ?',
         (_id,),
-    ).fetchall()
+    ).fetchone()
+    
+    if request.method == 'POST' and g.user is not None:
+        return redirect(url_for('cart.add_movie', movie_id=movie['id']))
 
     return render_template('movies/movie_detail.html', movie=movie)
