@@ -14,10 +14,17 @@ Bem-vindo ao repositório da API Moved By Movies! Esta API simula o processo de 
 - Implantação Eficiente: Preparação para implantar a API em um ambiente de produção.
 
 ## Tecnologias Utilizadas
-- Linguagem: Python
-- Framework: Flask
-- Banco de Dados: SQLite
-- Integração Externa: OMDb API, ViaCEP
+![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
+![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+
+## Time spent:
+[![wakatime](https://wakatime.com/badge/github/welli7ngton/moved-by-movies.svg)](https://wakatime.com/badge/github/welli7ngton/moved-by-movies)
+
+## APIS implementadas:
+  - OMDB API:`https://www.omdbapi.com/`
+  - ViaCEP:`https://viacep.com.br/`
 
 ## Endpoints
 
