@@ -13,13 +13,13 @@ Bem-vindo ao repositório da API Moved By Movies! Esta API simula o processo de 
 - Código Limpo: Desenvolvimento seguindo as melhores práticas para garantir um código de alta qualidade.
 - Implantação Eficiente: Preparação para implantar a API em um ambiente de produção.
 
-# Tecnologias Utilizadas
+## Tecnologias Utilizadas
 - Linguagem: Python
 - Framework: Flask
 - Banco de Dados: SQLite
 - Integração Externa: OMDb API, ViaCEP
 
-# Endpoints
+## Endpoints
 
 | Rota                              | Métodos  | Endpoint                                 |
 |-----------------------------------|----------|------------------------------------------|
