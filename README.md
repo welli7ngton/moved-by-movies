@@ -4,13 +4,9 @@ Bem-vindo ao repositório da API Moved By Movies! Esta API simula o processo de 
 ## Principais Recursos
 - Autenticação Segura: Implementação de login seguro com senhas criptografadas para proteger as contas dos usuários.
 - Compra de Filmes: Capacidade de adquirir filmes disponíveis.
-- Avaliação de Filmes: Os usuários podem avaliar os filmes adquiridos para compartilhar suas opiniões.
 - Catálogo de Filmes: Um catálogo extenso apresentando uma ampla variedade de filmes para escolher.
 - Carrinho de Compras: Funcionalidade robusta para gerenciar itens selecionados para compra.
-- Promoções Especiais: Ofertas exclusivas e promoções para proporcionar aos usuários uma experiência ainda mais gratificante.
 - Painel Administrativo: Interface de administração para gerenciar preços, ofertas, banco de dados, saldos e vale-presentes.
-- Interface Amigável: Design intuitivo e fácil de usar para uma navegação tranquila.
-- Código Limpo: Desenvolvimento seguindo as melhores práticas para garantir um código de alta qualidade.
 - Implantação Eficiente: Preparação para implantar a API em um ambiente de produção.
 
 ## Tecnologias Utilizadas
