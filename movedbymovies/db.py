@@ -1,5 +1,5 @@
 import sqlite3
-
+from datetime import datetime
 import click
 from flask import current_app, g, Flask
 
@@ -26,7 +26,7 @@ def init_db():
 @click.command('init-db')
 def init_db_command():
     init_db()
-    click.echo('Banco de dados inicializado!')
+    click.echo(f"Banco de dados inicializado! {datetime.now()}")
 
 
 def close_db(e=None):
