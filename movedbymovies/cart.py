@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, render_template, session, redirect, url_for
+    Blueprint, flash, render_template, session, redirect, url_for, request
 )
 
 from movedbymovies.db import get_db
@@ -26,8 +26,14 @@ def add_movie(movie_id):
 
 @bp.route('/my_cart', methods=('GET', 'POST'))
 def my_cart():
+    if request.method == 'GET':
+        movies = session.get('cart')
+        if movies:
+            price = sum([v[2] for m, v in movies.items()])
+            return render_template('cart/my_cart.html', movies=movies, price=price)
+        return render_template('cart/my_cart.html', movies=None, price=None)
+
     movies = session.get('cart')
-    if movies:
-        price = sum([v[2] for m, v in movies.items()])
-        return render_template('cart/my_cart.html', movies=movies, price=price)
-    return render_template('cart/my_cart.html', movies=None, price=None)
+    movies.pop(request.form['removed-movie'])
+    flash('Movie removed.')
+    return redirect(url_for('cart.my_cart'))
