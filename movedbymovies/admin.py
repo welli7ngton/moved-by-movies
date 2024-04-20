@@ -1,4 +1,4 @@
-# flake8:noqa
+# flake8: noqa
 import sys
 from pathlib import Path
 file = Path(__file__).resolve()
@@ -28,6 +28,7 @@ API_KEY = os.getenv('API_KEY')
 HOST = 'https://www.omdbapi.com/'
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
+
 
 def admin_required(view):
     @functools.wraps(view)
@@ -90,21 +91,21 @@ def register_movie():
         if not title:
             error = 'Movie Title is required.'
 
-
         if error is None:
             response = requests.get(f'{HOST}?t={title}&apikey={API_KEY}&plot=full')
-            
+            querry = """INSERT INTO movies
+                        (title, plot, released, runtime,
+                        gender, director, poster, imdbRating,
+                        actors, awards, writer, country,
+                        language)
+                        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)"""
+
             title = response.json()
 
             try:
                 Trigger.movie_registered(session.get('user_id'), db)
                 db.execute(
-                    """INSERT INTO movies
-                        (title, plot, released, runtime,
-                        gender, director, poster, imdbRating,
-                        actors, awards, writer, country,
-                        language)
-                    VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                    querry,
                     (
                         title['Title'], title['Plot'], title['Released'],
                         title['Runtime'], title['Genre'], title['Director'],
@@ -115,9 +116,9 @@ def register_movie():
                     ),
                 )
                 db.commit()
-                flash('Movie Registered!')
-            except KeyError as e:
-                flash('Movie not Found :(')
+                flash(f'Movie ({title["Title"]}) Registered!')
+            except KeyError:
+                flash(f'Movie ({request.form["movie-title"]}) not Found :(')
 
     return render_template('admin/register_movie.html')
 
@@ -125,18 +126,18 @@ def register_movie():
 @bp.route('/users', methods=('GET', 'POST'))
 def users():
     db = get_db()
-    
+
     users = db.execute('SELECT * FROM users').fetchall()
-    
+
     return render_template('admin/users.html', users=users)
 
 
 @bp.route('/single_user/<int:_id>', methods=('GET', 'POST'))
 def single_user(_id):
     db = get_db()
-    
+
     user = db.execute('SELECT * FROM users WHERE id == ?', (_id,)).fetchall()
-    
+
     if request.method == 'POST':
         try:
             _ = request.form['set-admin']
@@ -147,7 +148,7 @@ def single_user(_id):
             db.commit()
             flash('User updated!')
             return redirect(url_for('admin.users'))
-        except KeyError as e:
+        except KeyError:
             db.execute(
                 'UPDATE users SET is_admin = ? WHERE id = ?',
                 (0, _id)
@@ -155,14 +156,14 @@ def single_user(_id):
             db.commit()
             flash('User updated!')
             return redirect(url_for('admin.users'))
-    
+
     return render_template('admin/single_user.html', user=user[0])
-    
+
 
 @bp.route('/delete_user/<int:_id>', methods=('GET', 'POST'))
 def delete_user(_id):
     db = get_db()
-    
+
     if request.method == 'POST':
         password = request.form['password']
         user = db.execute('SELECT * FROM admin WHERE id = ?', (session.get('user_id'),)).fetchone()
@@ -174,8 +175,5 @@ def delete_user(_id):
             flash('User Deleted!')
             return redirect(url_for('admin.users'))
         flash('Incorrect Password')
-    
+
     return render_template('admin/delete_user.html')
-
-
-
