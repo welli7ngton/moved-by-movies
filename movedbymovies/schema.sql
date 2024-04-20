@@ -36,6 +36,7 @@ CREATE TABLE movies (
   language TEXT NULL,
   awards TEXT NULL,
   imdbRating FLOAT,
+  price FLOAT NOT NULL DEFAULT 25.99,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
