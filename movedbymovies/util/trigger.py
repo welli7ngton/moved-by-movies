@@ -20,7 +20,7 @@ class Trigger:
             """INSERT INTO logs
             (type_operation, admin_id,
             motivation, delete_date)
-            VALUES (?,?,?,?,?)""",
+            VALUES (?,?,?,?)""",
             ('Movie registered', admin_id, 'movie added', date.today())
         )
         db.commit()
